@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _20_02_25
+namespace _26_02_25
 {
-    public class Program
+    internal class Program
     {
         static void Main(string[] args)
         {
-
         }
     }
 }
