@@ -6,18 +6,19 @@ using System.Threading.Tasks;
 
 namespace _26_02_25
 {
-    internal class Dish : CafeAssortment
+    public class Dish : CafeAssortment
     {
-        public int Weight { get; set; }
-        public int Calories { get; set; }
+        private int weight_ { get; set; }
+        private int calories_ { get; set; }
+
         override public string Info()
         {
-            return $"Напиток\nИмя: {PosName}\nКатегория: {Cathegory}\nЦена: {Cost}\nВес: {Weight}\nКалории: {Calories}";
+            return $"Position name: {posName_} Category: {category_} Cost: {cost_} Weight: {weight_} Calories: {calories_}";
         }
 
         public decimal CostPerGramm()
         {
-            return Weight / Cost;
+            return weight_ / cost_;
         }
     }
 }

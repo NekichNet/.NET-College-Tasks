@@ -6,15 +6,13 @@ using System.Threading.Tasks;
 
 namespace _26_02_25
 {
-    internal class FeaturesStudent
+    public class FeaturesStudent
     {
-        public string FullName { get; set; }
-        public string Group { get; }
-        public int GradeBook { get; }
+        private string fullname_;
+        private string group_;
+        private int gradeBook_;
+        private string snils_;
 
-        public string SNILS { get; }
-
-
-        public string GetInfo() { return $"Имя: {FullName}\nГруппа: {Group}\nНомер зачетной книжки: {GradeBook}\nСНИЛС: {SNILS}"; }
+        public string GetInfo() { return $"Fullname: {fullname_} Group: {Group} Grade book: {GradeBook} СНИЛС: {SNILS}"; }
     }
 }

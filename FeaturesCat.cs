@@ -6,19 +6,19 @@ using System.Threading.Tasks;
 
 namespace _26_02_25
 {
-    internal class FeaturesCat
+    public class FeaturesCat
     {
-        public string Name { get; set; }
-        public string Breed {  get; }
-        public int Height { get; set; }
-        public int Age { get; set; }
-        public int Weight {  get; set; }
-        public string Owner {  get; } 
+        private string name_
+        private string breed_
+        private int height_
+        private int age_
+        private int weight_
+        private string owner_ 
 
         public string Info
         {
             get {
-                return $"Кличка: {Name}\nПорода: {Breed}\nРост: {Height}\nВозраст: {Age}\nМАССА: {Weight}\nХозяин: {Owner}";
+                return $"Name: {name_} Breed: {breed_} Height: {height_} Age: {age_} Weight: {weight_} Owner: {owner_}";
             }
         }
     }

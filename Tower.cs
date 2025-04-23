@@ -12,16 +12,17 @@ namespace _26_02_25
 
         public decimal Gain()
         {
-            return cost_ * Seats;
+            return cost_ * seats_;
         }
-        public decimal Gain(int Passengers)
+
+        public decimal Gain(int passengers)
         {
-            return cost_ * Passengers;
+            return cost_ * passengers;
         }
 
         override public string Info()
         {
-            return $"Name: {Name} Duration: {Duration} Seats: {Seats}";
+            return $"Name: {name_} Duration: {duration_} Seats: {seats_}";
         }
     }
 }

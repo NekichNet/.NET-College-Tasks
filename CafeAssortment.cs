@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace _26_02_25
 {
-    internal class CafeAssortment
+    public class CafeAssortment
     {
-        public string PosName { get; set; }
-        public decimal Cost { get; set; }
-        public string Cathegory { get; set; }
+        protected string posName_;
+        protected decimal cost_;
+        protected string category_;
 
         public virtual string Info()
         {
-            return $"Ассортимент\nИмя: {PosName}\nКатегория: {Cathegory}\nЦена: {Cost}\n";
+            return $"Position name: {posName_} Category: {category_} Cost: {cost_}";
         }
     }
 }

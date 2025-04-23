@@ -7,22 +7,23 @@ using System.Xml.Linq;
 
 namespace _26_02_25
 {
-    internal class RollerCoaster : Attractions
+    public class RollerCoaster : Attractions
     {
-        public decimal CostPerRide { get; } = 100;
+        private decimal costPerRide_ = 100;
 
         override public string Info()
         {
-            return $"Американцкее горке\nНазвание: {Name}\nДлительность поездки: {Duration}\nКол-во сидений: {Seats}";
+            return $"Name: {name_} Duration: {duration_} Seats: {seats_}";
         }
 
         public decimal Gain()
         {
-            return CostPerRide * Seats;
+            return costPerRide_ * seats_;
         }
-        public decimal Gain(int Passengers)
+
+        public decimal Gain(int passengers)
         {
-            return CostPerRide * Passengers;
+            return costPerRide_ * passengers;
         }
     }
 }

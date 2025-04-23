@@ -7,31 +7,26 @@ using System.Xml.Linq;
 
 namespace _26_02_25
 {
-    internal class FeaturesCinema
+    public class FeaturesCinema
     {
-        
-
-        public string Title { get; set; }
-        public decimal Cost { get; }
-        public int AmountOfViewers { get; set; }
-
-        public string Showroom { get; }
+        private string title_;
+        private decimal cost_;
+        private int amountOfViewers_;
+        private string room_;
 
         public string Info
         {
             get
             {
-                return $"Название: {Title}\nСтоимость билета: {Cost}\nКол-во зрителей: {AmountOfViewers}\nЗал: {Showroom}";
+                return $"Title: {title_} Cost: {cost_} Viewers: {amountOfViewers_} Room: {room_}";
             }
         }
 
-
-        public FeaturesCinema(string title, decimal cost, int amountOfViewers, string showroom) { 
-            this.Title = title;
-            this.Cost = cost;
-            this.AmountOfViewers = amountOfViewers;
-            this.Showroom = showroom;
+        public FeaturesCinema(string title, decimal cost, int amountOfViewers, string showroom) {
+            title_ = title;
+            cost_ = cost;
+            amountOfViewers_ = amountOfViewers;
+            showroom_ = showroom;
         }
-
     }
 }

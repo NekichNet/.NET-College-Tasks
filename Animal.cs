@@ -8,14 +8,14 @@ namespace _26_02_25
 {
     public class Animal
     {
-        public string Name { get; set; }
-        public string Weight { get; set; }
-        public string Breed { get; set; }
-        public string BirthDate { get; set; }
+        protected string name_;
+        protected string weight_;
+        protected string breed_;
+        protected string birthdate_;
 
         public virtual string Info()
         {
-            return $"Животное\nИмя: {Name}\nВес: {Weight}\nПорода: {Breed}\nДата рождения: {BirthDate}";
+            return $"Name: {name_} Weight: {weight_} Breed: {breed_} Birthdate: {birthdate_}";
         }
     }
 }

@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace _26_02_25
 {
-    internal class Drink : CafeAssortment
+    public class Drink : CafeAssortment
     {
-        public int Capacity { get; set; }
+        private int capacity_;
+
         override public string Info()
         {
-            return $"Напиток\nИмя: {PosName}\nКатегория: {Cathegory}\nЦена: {Cost}\nОбьем напитка: {Capacity}";
+            return $"Position name: {posName_} Category: {category_} Cost: {cost_} Capacity: {capacity_}";
         }
 
-        public decimal Sale(int offInPercents)
+        public decimal Sale(int off)
         {
-            return Cost * (offInPercents/100);
+            return cost_ * off;
         }
-
     }
 }

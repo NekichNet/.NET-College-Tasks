@@ -7,12 +7,11 @@ using System.Xml.Linq;
 
 namespace _26_02_25
 {
-    internal class Parrot : Animal
+    public class Parrot : Animal
     {
-       
         override public string Info()
         {
-            return $"Попуг\nИмя: {Name}\nВес: {Weight}\nПорода: {Breed}\nДата рождения: {BirthDate}";
+            return $"Name: {name_} Weight: {weight_} Breed: {breed_} Birthdate: {birthdate_}";
         }
     }
 }
