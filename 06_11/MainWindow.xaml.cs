@@ -26,30 +26,30 @@ namespace _06_11
 
         private void NoteBtn_Click(object sender, RoutedEventArgs e)
         {
-            OpenNotepadAsync();
+            new Thread(OpenNotepad).Start();
         }
 
-        private async Task OpenNotepadAsync()
+        private void OpenNotepad()
         {
             Process NotepadProcess = Process.Start(@"C:\Windows\system32\notepad.exe");
-            await Task.Delay(3000);
+            Thread.Sleep(3000);
             NotepadProcess.Kill();
         }
 
         private void UpdateBtn_Click(object sender, RoutedEventArgs e)
         {
-            BackgroundThreadAsync();
+            new Thread(BackgroundThread).Start();
         }
 
-        private async Task BackgroundThreadAsync()
+        private void BackgroundThread()
         {
             this.Dispatcher.BeginInvoke(DispatcherPriority.Normal,
-                (ThreadStart)async delegate ()
+                (ThreadStart) delegate ()
                 {
                     for (int i = 0; i < 10; i++)
                     {
                         OutputText.Text = (i).ToString();
-                        await Task.Delay(500);
+                        Thread.Sleep(500);
                     }
                 }
             );
@@ -57,10 +57,10 @@ namespace _06_11
 
         private void CmdBtn_Click(object sender, RoutedEventArgs e)
         {
-            OpenCmdAsync();
+            new Thread(OpenCmd).Start();
         }
 
-        private async Task OpenCmdAsync()
+        private void OpenCmd()
         {
             Process CmdProcess = new Process();
             CmdProcess.StartInfo.FileName = @"C:\Windows\system32\cmd.exe";
