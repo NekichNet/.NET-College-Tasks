@@ -12,74 +12,146 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
-namespace _06_11
+namespace _25_10
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly object _locker = new object();
+        private int _count = 0;
+        private List<int> _list = new List<int>();
+
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        private void NoteBtn_Click(object sender, RoutedEventArgs e)
+        private void RaceBtn_Click(object sender, RoutedEventArgs e)
         {
-            new Thread(OpenNotepad).Start();
+            _count = 0;
+            Thread first = new Thread(CounterThread);
+            Thread second = new Thread(CounterThread);
+            first.Start();
+            second.Start();
+            first.Join();
+            second.Join();
+            OutputText.Text = _count.ToString();
         }
 
-        private void OpenNotepad()
+        private void CounterThread()
         {
-            Process NotepadProcess = Process.Start(@"C:\Windows\system32\notepad.exe");
-            Thread.Sleep(3000);
-            NotepadProcess.Kill();
+            for (int i = 0; i < 100000000; i++)
+            {
+                _count++;
+            }
         }
 
-        private void UpdateBtn_Click(object sender, RoutedEventArgs e)
+        private void LockBtn_Click(object sender, RoutedEventArgs e)
         {
-            new Thread(BackgroundThread).Start();
+            _count = 0;
+            Thread first = new Thread(CounterWithLockThread);
+            Thread second = new Thread(CounterWithLockThread);
+            first.Start();
+            second.Start();
+            first.Join();
+            second.Join();
+            OutputText.Text = _count.ToString();
         }
 
-        private void BackgroundThread()
+        private void CounterWithLockThread ()
         {
-            this.Dispatcher.BeginInvoke(DispatcherPriority.Normal,
-                (ThreadStart) delegate ()
+            for (int i = 0; i < 100000000; i++)
+            {
+                lock (_locker)
                 {
-                    for (int i = 0; i < 10; i++)
+                    _count++;
+                }
+            }
+        }
+
+        private void TimeoutBtn_Click(object sender, RoutedEventArgs e)
+        {
+            _count = 0;
+            Thread first = new Thread(CounterWithTimeoutThread);
+            Thread second = new Thread(CounterWithTimeoutThread);
+            first.Start();
+            second.Start();
+            first.Join();
+            second.Join();
+            OutputText.Text = _count.ToString();
+        }
+
+        private void CounterWithTimeoutThread()
+        {
+            for (int i = 0; i < 100000000; i++)
+            {
+                while (true)
+                {
+                    if (Monitor.TryEnter(_locker))
                     {
-                        OutputText.Text = (i).ToString();
-                        Thread.Sleep(500);
+                        try
+                        {
+                            _count++;
+                        }
+                        finally
+                        {
+                            Monitor.Exit(_locker);
+                        }
+                        break;
+                    }
+                    else
+                    {
+                        Thread.Sleep(5);
                     }
                 }
-            );
+            }
         }
 
-        private void CmdBtn_Click(object sender, RoutedEventArgs e)
+        private void PulseBtn_Click(object sender, RoutedEventArgs e)
         {
-            new Thread(OpenCmd).Start();
+            Thread first = new Thread(GeneratorThread);
+            Thread second = new Thread(WorkerThread);
+            first.Start();
+            second.Start();
         }
 
-        private void OpenCmd()
+        private void GeneratorThread()
         {
-            Process CmdProcess = new Process();
-            CmdProcess.StartInfo.FileName = @"C:\Windows\system32\cmd.exe";
-            CmdProcess.StartInfo.UseShellExecute = false;
-            CmdProcess.StartInfo.RedirectStandardInput = true;
-            CmdProcess.StartInfo.RedirectStandardOutput = true;
-            CmdProcess.Start();
+            for (int i = 0; i < 10; i++)
+            {
+                Monitor.Wait(_locker);
+                _list.Add(i);
+                this.Dispatcher.BeginInvoke(DispatcherPriority.Normal,
+                    (ThreadStart)delegate ()
+                    {
+                        for (int i = 0; i < 10; i++)
+                        {
+                            OutputText.Text = _list.ToString();
+                        }
+                    }
+                );
+                Monitor.Exit(_locker);
+                Monitor.Pulse(_locker);
+                Thread.Sleep(500);
+            }
+        }
 
-            CmdProcess.StandardInput.WriteLine("dir");
-            String output = CmdProcess.StandardOutput.ReadToEnd();
-
-            CmdProcess.WaitForExit(); // you need to close the console window to continue
-
-            this.Dispatcher.BeginInvoke(DispatcherPriority.Normal,
-                (ThreadStart)delegate ()
+        private void WorkerThread()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                Monitor.Wait(_locker);
+                if (_list.Count > 0)
                 {
-                    OutputText.Text = output;
+                    _list.RemoveAt(0);
                 }
-            );
+                else { i++; }
+                Monitor.Exit(_locker);
+                Monitor.Pulse(_locker);
+                Thread.Sleep(1000);
+            }
         }
     }
 }

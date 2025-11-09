@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows;
 
-namespace _06_11
+namespace _25_10
 {
     /// <summary>
     /// Interaction logic for App.xaml
