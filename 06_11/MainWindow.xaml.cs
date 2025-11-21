@@ -121,19 +121,20 @@ namespace _25_10
         {
             for (int i = 0; i < 10; i++)
             {
-                Monitor.Wait(_locker);
-                _list.Add(i);
-                this.Dispatcher.BeginInvoke(DispatcherPriority.Normal,
-                    (ThreadStart)delegate ()
-                    {
-                        for (int i = 0; i < 10; i++)
+                lock (_locker)
+                {
+                    _list.Add(i);
+                    this.Dispatcher.BeginInvoke(DispatcherPriority.Normal,
+                        (ThreadStart)delegate ()
                         {
-                            OutputText.Text = _list.ToString();
+                            for (int i = 0; i < 10; i++)
+                            {
+                                OutputText.Text = ListToString(_list);
+                            }
                         }
-                    }
-                );
-                Monitor.Exit(_locker);
-                Monitor.Pulse(_locker);
+                    );
+                    Monitor.Pulse(_locker);
+                }
                 Thread.Sleep(500);
             }
         }
@@ -142,16 +143,30 @@ namespace _25_10
         {
             for (int i = 0; i < 10; i++)
             {
-                Monitor.Wait(_locker);
-                if (_list.Count > 0)
+                lock (_locker)
                 {
-                    _list.RemoveAt(0);
+                    while (!Monitor.Wait(_locker))
+                    {
+                        
+                    }
+                    if (_list.Count > 0)
+                    {
+                        _list.RemoveAt(0);
+                    }
+                    else { i++; }
                 }
-                else { i++; }
-                Monitor.Exit(_locker);
-                Monitor.Pulse(_locker);
                 Thread.Sleep(1000);
             }
+        }
+
+        private string ListToString(List<int> list)
+        {
+            string result = string.Empty;
+            foreach (int i in list)
+            {
+                result += i.ToString() + " ";
+            }
+            return result.TrimEnd();
         }
     }
 }
