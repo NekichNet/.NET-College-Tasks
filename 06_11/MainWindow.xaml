@@ -15,10 +15,15 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <TextBlock Name="OutputText" Grid.Row="0" Grid.ColumnSpan="3" MaxHeight="150" MaxWidth="750" Background="LightGray">0</TextBlock>
-        <Button Name="UpdateBtn" Grid.Row="1" Grid.Column="0" MaxHeight="150" MaxWidth="220" Click="UpdateBtn_Click">Update</Button>
-        <Button Name="NoteBtn" Grid.Row="1" Grid.Column="1" MaxHeight="150" MaxWidth="220" Click="NoteBtn_Click">Notepad</Button>
-        <Button Name="CmdBtn" Grid.Row="1" Grid.Column="2" MaxHeight="150" MaxWidth="220" Click="CmdBtn_Click">Command line</Button>
+        <ProgressBar Name="FirstBar" MaxHeight="150" MaxWidth="180" Grid.Row="0" Grid.Column="0"></ProgressBar>
+        <ProgressBar Name="SecondBar" MaxHeight="150" MaxWidth="180" Grid.Row="0" Grid.Column="1"></ProgressBar>
+        <ProgressBar Name="ThirdBar" MaxHeight="150" MaxWidth="180" Grid.Row="0" Grid.Column="2"></ProgressBar>
+        <TextBlock Name="OutputText" Grid.Row="0" Grid.Column="3"></TextBlock>
+        <Button Name="StandartButton" MaxHeight="150" MaxWidth="180" Grid.Row="1" Grid.Column="0">Standart</Button>
+        <Button Name="DynamicButton" MaxHeight="150" MaxWidth="180" Grid.Row="1" Grid.Column="1">Dynamic priority</Button>
+        <Button Name="ErrorButton" MaxHeight="150" MaxWidth="180" Grid.Row="1" Grid.Column="2">Error</Button>
+        <Button Name="ThreesomeButton" MaxHeight="150" MaxWidth="180" Grid.Row="1" Grid.Column="3">Threesome</Button>
     </Grid>
 </Window>
