@@ -24,15 +24,54 @@ namespace _06_11
             InitializeComponent();
         }
 
-        private void Counter(ProgressBar progressBar)
+        public void Counter(ProgressBar progressBar,
+            TextBlock textBlock,
+            ThreadPriority priority = ThreadPriority.Normal,
+            bool dynamicPriority = false,
+            bool dispatcher = true)
         {
-            for (int i = 0; i < 100; i++)
+            Thread.CurrentThread.Priority = priority;
+            for (int i = 0; i <= 100; i++)
             {
-                Dispatcher.Invoke(() => progressBar.Value = i);
+                if (dispatcher)
+                {
+                    Dispatcher.Invoke(() => progressBar.Value = i);
+                    Dispatcher.Invoke(() => textBlock.Text = i.ToString());
+                }
+                else
+                {
+                    progressBar.Value = i;
+                    textBlock.Text = i.ToString();
+                }
+                
                 Thread.Sleep(100);
+                if (dynamicPriority && i % 25 == 0 && i != 100)
+                {
+                    Thread.CurrentThread.Priority--;
+                }
             }
         }
 
+        public void StandartClick(object sender, RoutedEventArgs e)
+        {
+            new Thread(() => Counter(FirstBar, FirstText)).Start();
+        }
 
+        public void DynamicClick(object sender, RoutedEventArgs e)
+        {
+            new Thread(() => Counter(SecondBar, SecondText, ThreadPriority.Highest, true)).Start();
+        }
+
+        public void ErrorClick(object sender, RoutedEventArgs e)
+        {
+            new Thread(() => Counter(ThirdBar, ThirdText, dispatcher: false)).Start();
+        }
+
+        public void Threesome(object sender, RoutedEventArgs e)
+        {
+            new Thread(() => Counter(FirstBar, FirstText, priority: ThreadPriority.Lowest)).Start();
+            new Thread(() => Counter(SecondBar, SecondText)).Start();
+            new Thread(() => Counter(ThirdBar, ThirdText, priority: ThreadPriority.Highest)).Start();
+        }
     }
 }

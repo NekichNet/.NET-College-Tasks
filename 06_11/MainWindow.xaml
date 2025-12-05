@@ -20,10 +20,14 @@
         <ProgressBar Name="FirstBar" MaxHeight="150" MaxWidth="180" Grid.Row="0" Grid.Column="0"></ProgressBar>
         <ProgressBar Name="SecondBar" MaxHeight="150" MaxWidth="180" Grid.Row="0" Grid.Column="1"></ProgressBar>
         <ProgressBar Name="ThirdBar" MaxHeight="150" MaxWidth="180" Grid.Row="0" Grid.Column="2"></ProgressBar>
-        <TextBlock Name="OutputText" Grid.Row="0" Grid.Column="3"></TextBlock>
-        <Button Name="StandartButton" MaxHeight="150" MaxWidth="180" Grid.Row="1" Grid.Column="0">Standart</Button>
-        <Button Name="DynamicButton" MaxHeight="150" MaxWidth="180" Grid.Row="1" Grid.Column="1">Dynamic priority</Button>
-        <Button Name="ErrorButton" MaxHeight="150" MaxWidth="180" Grid.Row="1" Grid.Column="2">Error</Button>
-        <Button Name="ThreesomeButton" MaxHeight="150" MaxWidth="180" Grid.Row="1" Grid.Column="3">Threesome</Button>
+        <StackPanel Grid.Row="0" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Name="FirstText" MinWidth="50">0</TextBlock>
+            <TextBlock Name="SecondText" MinWidth="50">0</TextBlock>
+            <TextBlock Name="ThirdText" MinWidth="50">0</TextBlock>
+        </StackPanel>
+        <Button Name="StandartButton" MaxHeight="150" MaxWidth="180" Grid.Row="1" Grid.Column="0" Click="StandartClick">Standart</Button>
+        <Button Name="DynamicButton" MaxHeight="150" MaxWidth="180" Grid.Row="1" Grid.Column="1" Click="DynamicClick">Dynamic priority</Button>
+        <Button Name="ErrorButton" MaxHeight="150" MaxWidth="180" Grid.Row="1" Grid.Column="2" Click="ErrorClick">Error</Button>
+        <Button Name="ThreesomeButton" MaxHeight="150" MaxWidth="180" Grid.Row="1" Grid.Column="3" Click="Threesome">Threesome</Button>
     </Grid>
 </Window>
