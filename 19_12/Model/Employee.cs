@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _12_12.Model
+namespace _19_12.Model
 {
-    public class User
+    public class Employee
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string FullName { get; set; }
+        public string PhoneNumber { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
     }
 }
