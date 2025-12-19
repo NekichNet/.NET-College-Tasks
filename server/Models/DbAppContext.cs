@@ -1,12 +1,11 @@
-﻿using _19_12.Model;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _19_12
+namespace server.Models
 {
     public class DbAppContext : DbContext
     {
